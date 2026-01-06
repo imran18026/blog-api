@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\hp\\Downloads\\blog\\blog-api\\logs\\winston\\errors\\.4c4c4abe11845ac31c0040373f851e8872e274e5-audit.json",
+    "files": [
+        {
+            "date": 1767678955804,
+            "name": "C:\\Users\\hp\\Downloads\\blog\\blog-api\\logs\\winston\\errors\\phu-2026-06-01-11-error.log",
+            "hash": "086039387e509873cbc444169bcf1cbf15fac286078268c6da102a370e014a18"
+        },
+        {
+            "date": 1767679280029,
+            "name": "C:\\Users\\hp\\Downloads\\blog\\blog-api\\logs\\winston\\errors\\phu-2026-06-01-12-error.log",
+            "hash": "ad7443a2e824af7163758a7911af4f324b70cb91a91aeb27705cea5362e52cfc"
+        }
+    ],
+    "hashType": "sha256"
+}

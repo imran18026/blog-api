@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\hp\\Downloads\\blog\\blog-api\\logs\\winston\\successes\\.f6261dac0602a640f706571694482676410adc34-audit.json",
+    "files": [
+        {
+            "date": 1767678955801,
+            "name": "C:\\Users\\hp\\Downloads\\blog\\blog-api\\logs\\winston\\successes\\phu-2026-06-01-11-success.log",
+            "hash": "c8ea6a038640f175fb54c63fb4d76bf0fd0e07991ebf69091d20a5fad5e9aa64"
+        },
+        {
+            "date": 1767679280026,
+            "name": "C:\\Users\\hp\\Downloads\\blog\\blog-api\\logs\\winston\\successes\\phu-2026-06-01-12-success.log",
+            "hash": "25c95407256fcdb5a122abde411a6c60651999906842e76fc9bcc9d495210da6"
+        }
+    ],
+    "hashType": "sha256"
+}
