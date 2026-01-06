@@ -7,6 +7,21 @@ import { UserValidation } from './user.validations';
 
 const router = express.Router();
 
+// Profile routes (must come before /:id routes)
+router.get(
+    '/me',
+    auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
+    UserController.getMyProfile
+);
+
+router.patch(
+    '/me',
+    auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
+    validateRequest(UserValidation.updateProfile),
+    UserController.updateMyProfile
+);
+
+// General user routes
 router.get('/', UserController.getAllFromDB);
 router.get('/:id', UserController.getByIdFromDB);
 
@@ -18,8 +33,8 @@ router.post(
 
 router.patch(
     '/:id',
-    validateRequest(UserValidation.update),
-    auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
+    auth(ENUM_USER_ROLE.ADMIN),
+    validateRequest(UserValidation.adminUpdate),
     UserController.updateOneInDB
 );
 

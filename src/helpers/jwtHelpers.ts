@@ -5,9 +5,11 @@ const createToken = (
   secret: Secret,
   expireTime: string
 ): string => {
-  return jwt.sign(payload, secret, {
+  // Type assertion needed due to strict type checking with exactOptionalPropertyTypes
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return jwt.sign(payload, secret as string, {
     expiresIn: expireTime,
-  });
+  } as any);
 };
 
 const verifyToken = (token: string, secret: Secret): JwtPayload => {

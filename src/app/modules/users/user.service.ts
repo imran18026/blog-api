@@ -189,10 +189,75 @@ const deleteByIdFromDB = async (id: string): Promise<Partial<User>> => {
     return result;
 };
 
+const getMyProfile = async (userId: string): Promise<Partial<User> | null> => {
+    const result = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+            id: true,
+            email: true,
+            name: true,
+            role: true,
+            createdAt: true,
+            updatedAt: true,
+            password: false
+        }
+    });
+
+    if (!result) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    }
+
+    return result;
+};
+
+const updateMyProfile = async (
+    userId: string,
+    payload: IUserUpdateData
+): Promise<Partial<User> | null> => {
+    // Check if user exists
+    const user = await prisma.user.findUnique({
+        where: { id: userId }
+    });
+
+    if (!user) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    }
+
+    // Only allow name updates for regular users through /me endpoint
+    const allowedFields: Partial<IUserUpdateData> = {};
+    if (payload.name) {
+        allowedFields.name = payload.name;
+    }
+
+    // Prevent email and role updates through this endpoint
+    if (payload.email || payload.role) {
+        throw new ApiError(httpStatus.FORBIDDEN, "Only name updates are allowed through this endpoint");
+    }
+
+    // Update user
+    const result = await prisma.user.update({
+        where: { id: userId },
+        data: allowedFields,
+        select: {
+            id: true,
+            email: true,
+            name: true,
+            role: true,
+            createdAt: true,
+            updatedAt: true,
+            password: false
+        }
+    });
+
+    return result;
+};
+
 export const UserService = {
     insertIntoDB,
     getAllFromDB,
     getByIdFromDB,
     updateOneInDB,
-    deleteByIdFromDB
+    deleteByIdFromDB,
+    getMyProfile,
+    updateMyProfile
 }

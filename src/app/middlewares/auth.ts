@@ -9,11 +9,23 @@ const auth =
   (...requiredRoles: string[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      //get authorization token
-      const token = req.headers.authorization;
+      //get authorization token from header or cookie
+      let token = req.headers.authorization;
+
+      // If no token in header, check cookies
+      if (!token && req.cookies?.accessToken) {
+        token = req.cookies.accessToken;
+      }
+
       if (!token) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized');
       }
+
+      // Remove 'Bearer ' prefix if present
+      if (token.startsWith('Bearer ')) {
+        token = token.substring(7);
+      }
+
       // verify token
       let verifiedUser = null;
 

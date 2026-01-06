@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import { WeekDays } from '@prisma/client';
 
 export const hashPassword = async (password: string): Promise<string> => {
     const saltRounds = 10;

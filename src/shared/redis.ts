@@ -1,16 +1,18 @@
 import { SetOptions, createClient } from "redis";
 import config from "../config";
 
+const redisUrl = config.redis.url || 'redis://localhost:6379';
+
 const redisClient = createClient({
-    url: config.redis.url
+    url: redisUrl
 });
 
 const redisPubClient = createClient({
-    url: config.redis.url
+    url: redisUrl
 });
 
 const redisSubClient = createClient({
-    url: config.redis.url
+    url: redisUrl
 });
 
 

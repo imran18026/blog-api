@@ -62,10 +62,44 @@ const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
     });
 })
 
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+    const user = req.user;
+
+    if (!user || !user.userId) {
+        throw new Error("User not authenticated");
+    }
+
+    const result = await UserService.getMyProfile(user.userId);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Profile fetched successfully',
+        data: result
+    });
+})
+
+const updateMyProfile = catchAsync(async (req: Request, res: Response) => {
+    const user = req.user;
+
+    if (!user || !user.userId) {
+        throw new Error("User not authenticated");
+    }
+
+    const result = await UserService.updateMyProfile(user.userId, req.body);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Profile updated successfully',
+        data: result
+    });
+})
+
 export const UserController = {
     insertIntoDB,
     getAllFromDB,
     getByIdFromDB,
     updateOneInDB,
     deleteByIdFromDB,
+    getMyProfile,
+    updateMyProfile
 }
